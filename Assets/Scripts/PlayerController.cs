@@ -1,16 +1,25 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private float speed = 10.0f;
+    private Rigidbody _rigidbody;
+    private Vector2 movementVector;
+
     void Start()
     {
-        
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        _rigidbody.AddForce(new Vector3(movementVector.x, 0.0f, movementVector.y) * speed);
+    }
+
+    void OnMove(InputValue movementValue)
+    {
+        movementVector = movementValue.Get<Vector2>();
     }
 }
